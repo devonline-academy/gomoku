@@ -23,9 +23,9 @@ package academy.devonline.gomoku;
  */
 public final class Constants {
 
-    public static final int GAME_TABLE_SIZE = 3;
+    public static final int GAME_TABLE_SIZE = 15;
 
-    public static final int WIN_COMBINATION_SIZE = 3;
+    public static final int WIN_COMBINATION_SIZE = 5;
 
     private Constants() {
     }

@@ -22,6 +22,7 @@ import academy.devonline.gomoku.model.game.GameTable;
 import academy.devonline.gomoku.model.game.Player;
 import academy.devonline.gomoku.model.game.Sign;
 
+import static academy.devonline.gomoku.Constants.GAME_TABLE_SIZE;
 import static academy.devonline.gomoku.Constants.WIN_COMBINATION_SIZE;
 
 /**
@@ -38,36 +39,50 @@ public class WinnerVerifier {
     }
 
     private boolean isWinnerByRows(final GameTable gameTable, final Sign sign) {
-        for (int i = 0; i < WIN_COMBINATION_SIZE; i++) {
-            if (gameTable.getSign(new Cell(i, 0)) == gameTable.getSign(new Cell(i, 1)) &&
-                    gameTable.getSign(new Cell(i, 1)) == gameTable.getSign(new Cell(i, 2)) &&
-                    gameTable.getSign(new Cell(i, 2)) == sign) {
-                return true;
-            }
-        }
-        return false;
+        return isWinnerUsingLambda(gameTable, sign, (i, j, k) -> new Cell(i, j + k));
     }
 
     private boolean isWinnerByCols(final GameTable gameTable, final Sign sign) {
-        for (int i = 0; i < WIN_COMBINATION_SIZE; i++) {
-            if (gameTable.getSign(new Cell(0, i)) == gameTable.getSign(new Cell(1, i)) &&
-                    gameTable.getSign(new Cell(1, i)) == gameTable.getSign(new Cell(2, i)) &&
-                    gameTable.getSign(new Cell(2, i)) == sign) {
-                return true;
+        return isWinnerUsingLambda(gameTable, sign, (i, j, k) -> new Cell(i + k, j));
+    }
+
+    private boolean isWinnerByMainDiagonal(final GameTable gameTable, final Sign sign) {
+        return isWinnerUsingLambda(gameTable, sign, (i, j, k) -> new Cell(i + k, j + k));
+    }
+
+    private boolean isWinnerBySecondaryDiagonal(final GameTable gameTable, final Sign sign) {
+        return isWinnerUsingLambda(gameTable, sign, (i, j, k) -> new Cell(i + k, j - k));
+    }
+
+    private boolean isWinnerUsingLambda(final GameTable gameTable, final Sign sign, final Lambda lambda) {
+        for (int i = 0; i < GAME_TABLE_SIZE; i++) {
+            for (int j = 0; j < GAME_TABLE_SIZE; j++) {
+                int filledCellCount = 0;
+                for (int k = 0; k < WIN_COMBINATION_SIZE; k++) {
+                    final Cell cell = lambda.convert(i, j, k);
+                    if (gameTable.isValid(cell)) {
+                        if (gameTable.getSign(cell) == sign) {
+                            filledCellCount++;
+                        } else {
+                            break;
+                        }
+                    }
+                }
+                if (filledCellCount == WIN_COMBINATION_SIZE) {
+                    return true;
+                }
             }
         }
         return false;
     }
 
-    private boolean isWinnerByMainDiagonal(final GameTable gameTable, final Sign sign) {
-        return gameTable.getSign(new Cell(0, 0)) == gameTable.getSign(new Cell(1, 1)) &&
-                gameTable.getSign(new Cell(1, 1)) == gameTable.getSign(new Cell(2, 2)) &&
-                gameTable.getSign(new Cell(2, 2)) == sign;
-    }
+    /**
+     * @author devonline
+     * @link http://devonline.academy/java
+     */
+    @FunctionalInterface
+    private interface Lambda {
 
-    private boolean isWinnerBySecondaryDiagonal(final GameTable gameTable, final Sign sign) {
-        return gameTable.getSign(new Cell(2, 0)) == gameTable.getSign(new Cell(1, 1)) &&
-                gameTable.getSign(new Cell(1, 1)) == gameTable.getSign(new Cell(0, 2)) &&
-                gameTable.getSign(new Cell(0, 2)) == sign;
+        Cell convert(int i, int j, int k);
     }
 }

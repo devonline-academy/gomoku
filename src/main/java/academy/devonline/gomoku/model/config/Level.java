@@ -19,9 +19,9 @@ package academy.devonline.gomoku.model.config;
 
 import academy.devonline.gomoku.component.ComputerMoveStrategy;
 import academy.devonline.gomoku.component.strategy.FirstMoveToTheCenterComputerMoveStrategy;
-import academy.devonline.gomoku.component.strategy.PreventUserWinComputerMoveStrategy;
 import academy.devonline.gomoku.component.strategy.RandomComputerMoveStrategy;
-import academy.devonline.gomoku.component.strategy.WinNowComputerMoveStrategy;
+import academy.devonline.gomoku.component.strategy.TryPreventUserWinComputerMoveStrategy;
+import academy.devonline.gomoku.component.strategy.TryWinComputerMoveStrategy;
 
 /**
  * @author devonline
@@ -35,8 +35,14 @@ public enum Level {
     }),
 
     LEVEL2(new ComputerMoveStrategy[]{
-            new WinNowComputerMoveStrategy(),
-            new PreventUserWinComputerMoveStrategy(),
+            new TryWinComputerMoveStrategy(1),
+            new TryPreventUserWinComputerMoveStrategy(1),
+            new TryWinComputerMoveStrategy(2),
+            new TryPreventUserWinComputerMoveStrategy(2),
+            new TryWinComputerMoveStrategy(3),
+            new TryPreventUserWinComputerMoveStrategy(3),
+            new TryWinComputerMoveStrategy(4),
+            new TryPreventUserWinComputerMoveStrategy(4),
             new FirstMoveToTheCenterComputerMoveStrategy(),
             new RandomComputerMoveStrategy()
     });

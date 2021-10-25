@@ -23,14 +23,15 @@ import academy.devonline.gomoku.model.game.Sign;
  * @author devonline
  * @link http://devonline.academy/java
  */
-public class WinNowComputerMoveStrategy extends AbstractComputerMoveStrategy {
+public class TryPreventUserWinComputerMoveStrategy extends AbstractComputerMoveStrategy {
 
-    public WinNowComputerMoveStrategy() {
-        super(1);
+    public TryPreventUserWinComputerMoveStrategy(final int expectedCountEmptyCells) {
+        super(expectedCountEmptyCells);
     }
 
     @Override
     protected Sign getFindSign(final Sign moveSign) {
-        return moveSign;
+        return moveSign.oppositeSign();
     }
 }
+

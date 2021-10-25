@@ -51,6 +51,11 @@ public class GameTable {
         table[cell.getRow()][cell.getCol()] = sign;
     }
 
+    public boolean isValid(final Cell cell) {
+        return cell.getRow() >= 0 && cell.getRow() < GAME_TABLE_SIZE &&
+                cell.getCol() >= 0 && cell.getCol() < GAME_TABLE_SIZE;
+    }
+
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("GameTable{");
