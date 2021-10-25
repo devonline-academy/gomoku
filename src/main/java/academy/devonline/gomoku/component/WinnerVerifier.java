@@ -22,6 +22,8 @@ import academy.devonline.gomoku.model.game.GameTable;
 import academy.devonline.gomoku.model.game.Player;
 import academy.devonline.gomoku.model.game.Sign;
 
+import static academy.devonline.gomoku.Constants.WIN_COMBINATION_SIZE;
+
 /**
  * @author devonline
  * @link http://devonline.academy/java
@@ -36,7 +38,7 @@ public class WinnerVerifier {
     }
 
     private boolean isWinnerByRows(final GameTable gameTable, final Sign sign) {
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < WIN_COMBINATION_SIZE; i++) {
             if (gameTable.getSign(new Cell(i, 0)) == gameTable.getSign(new Cell(i, 1)) &&
                     gameTable.getSign(new Cell(i, 1)) == gameTable.getSign(new Cell(i, 2)) &&
                     gameTable.getSign(new Cell(i, 2)) == sign) {
@@ -47,7 +49,7 @@ public class WinnerVerifier {
     }
 
     private boolean isWinnerByCols(final GameTable gameTable, final Sign sign) {
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < WIN_COMBINATION_SIZE; i++) {
             if (gameTable.getSign(new Cell(0, i)) == gameTable.getSign(new Cell(1, i)) &&
                     gameTable.getSign(new Cell(1, i)) == gameTable.getSign(new Cell(2, i)) &&
                     gameTable.getSign(new Cell(2, i)) == sign) {

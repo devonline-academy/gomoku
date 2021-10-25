@@ -24,6 +24,8 @@ import academy.devonline.gomoku.model.game.Sign;
 
 import java.util.Random;
 
+import static academy.devonline.gomoku.Constants.GAME_TABLE_SIZE;
+
 /**
  * @author devonline
  * @link http://devonline.academy/java
@@ -32,10 +34,10 @@ public class RandomComputerMoveStrategy implements ComputerMoveStrategy {
 
     @Override
     public boolean tryToMakeMove(final GameTable gameTable, final Sign sign) {
-        final Cell[] emptyCells = new Cell[9];
+        final Cell[] emptyCells = new Cell[GAME_TABLE_SIZE * GAME_TABLE_SIZE];
         int count = 0;
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
+        for (int i = 0; i < GAME_TABLE_SIZE; i++) {
+            for (int j = 0; j < GAME_TABLE_SIZE; j++) {
                 final Cell cell = new Cell(i, j);
                 if (gameTable.isEmpty(cell)) {
                     emptyCells[count++] = cell;

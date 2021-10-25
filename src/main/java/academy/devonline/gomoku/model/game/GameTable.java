@@ -19,6 +19,7 @@ package academy.devonline.gomoku.model.game;
 
 import java.util.Arrays;
 
+import static academy.devonline.gomoku.Constants.GAME_TABLE_SIZE;
 import static academy.devonline.gomoku.model.game.Sign.EMPTY;
 
 /**
@@ -27,11 +28,16 @@ import static academy.devonline.gomoku.model.game.Sign.EMPTY;
  */
 public class GameTable {
 
-    private final Sign[][] table = {
-            {EMPTY, EMPTY, EMPTY},
-            {EMPTY, EMPTY, EMPTY},
-            {EMPTY, EMPTY, EMPTY}
-    };
+    private final Sign[][] table;
+
+    public GameTable() {
+        table = new Sign[GAME_TABLE_SIZE][GAME_TABLE_SIZE];
+        for (int i = 0; i < GAME_TABLE_SIZE; i++) {
+            for (int j = 0; j < GAME_TABLE_SIZE; j++) {
+                table[i][j] = EMPTY;
+            }
+        }
+    }
 
     public boolean isEmpty(final Cell cell) {
         return table[cell.getRow()][cell.getCol()] == EMPTY;

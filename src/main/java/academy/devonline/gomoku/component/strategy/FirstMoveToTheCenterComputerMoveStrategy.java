@@ -22,6 +22,8 @@ import academy.devonline.gomoku.model.game.Cell;
 import academy.devonline.gomoku.model.game.GameTable;
 import academy.devonline.gomoku.model.game.Sign;
 
+import static academy.devonline.gomoku.Constants.GAME_TABLE_SIZE;
+
 /**
  * @author devonline
  * @link http://devonline.academy/java
@@ -30,7 +32,7 @@ public class FirstMoveToTheCenterComputerMoveStrategy implements ComputerMoveStr
 
     @Override
     public boolean tryToMakeMove(final GameTable gameTable, final Sign sign) {
-        final Cell cell = new Cell(1, 1);
+        final Cell cell = new Cell(GAME_TABLE_SIZE / 2, GAME_TABLE_SIZE / 2);
         if (gameTable.isEmpty(cell)) {
             gameTable.setSign(cell, sign);
             return true;

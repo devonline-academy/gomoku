@@ -39,13 +39,13 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.WindowConstants;
 
+import static academy.devonline.gomoku.Constants.GAME_TABLE_SIZE;
+
 /**
  * @author devonline
  * @link http://devonline.academy/java
  */
 public final class GameWindow extends JFrame implements DataPrinter, UserInputReader, GameOverHandler {
-
-    private static final int GAME_TABLE_SIZE = 3;
 
     private static final int FONT_SIZE = 35;
 

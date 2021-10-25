@@ -15,27 +15,18 @@
  *
  */
 
-package academy.devonline.gomoku.component;
-
-import academy.devonline.gomoku.model.game.Cell;
-import academy.devonline.gomoku.model.game.GameTable;
-
-import static academy.devonline.gomoku.Constants.GAME_TABLE_SIZE;
+package academy.devonline.gomoku;
 
 /**
  * @author devonline
  * @link http://devonline.academy/java
  */
-public class CellVerifier {
+public final class Constants {
 
-    public boolean allCellsFilled(final GameTable gameTable) {
-        for (int i = 0; i < GAME_TABLE_SIZE; i++) {
-            for (int j = 0; j < GAME_TABLE_SIZE; j++) {
-                if (gameTable.isEmpty(new Cell(i, j))) {
-                    return false;
-                }
-            }
-        }
-        return true;
+    public static final int GAME_TABLE_SIZE = 3;
+
+    public static final int WIN_COMBINATION_SIZE = 3;
+
+    private Constants() {
     }
 }
