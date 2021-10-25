@@ -19,7 +19,6 @@ package academy.devonline.gomoku.model.game;
 
 import java.util.Arrays;
 
-import static academy.devonline.gomoku.Constants.GAME_TABLE_SIZE;
 import static academy.devonline.gomoku.model.game.Sign.EMPTY;
 
 /**
@@ -30,10 +29,10 @@ public class GameTable {
 
     private final Sign[][] table;
 
-    public GameTable() {
-        table = new Sign[GAME_TABLE_SIZE][GAME_TABLE_SIZE];
-        for (int i = 0; i < GAME_TABLE_SIZE; i++) {
-            for (int j = 0; j < GAME_TABLE_SIZE; j++) {
+    public GameTable(final int size) {
+        table = new Sign[size][size];
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
                 table[i][j] = EMPTY;
             }
         }
@@ -52,8 +51,12 @@ public class GameTable {
     }
 
     public boolean isValid(final Cell cell) {
-        return cell.getRow() >= 0 && cell.getRow() < GAME_TABLE_SIZE &&
-                cell.getCol() >= 0 && cell.getCol() < GAME_TABLE_SIZE;
+        return cell.getRow() >= 0 && cell.getRow() < getSize() &&
+                cell.getCol() >= 0 && cell.getCol() < getSize();
+    }
+
+    public int getSize() {
+        return table.length;
     }
 
     @Override

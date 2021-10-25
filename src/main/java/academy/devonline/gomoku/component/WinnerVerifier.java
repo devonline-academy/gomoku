@@ -22,7 +22,6 @@ import academy.devonline.gomoku.model.game.GameTable;
 import academy.devonline.gomoku.model.game.Player;
 import academy.devonline.gomoku.model.game.Sign;
 
-import static academy.devonline.gomoku.Constants.GAME_TABLE_SIZE;
 import static academy.devonline.gomoku.Constants.WIN_COMBINATION_SIZE;
 
 /**
@@ -55,8 +54,8 @@ public class WinnerVerifier {
     }
 
     private boolean isWinnerUsingLambda(final GameTable gameTable, final Sign sign, final Lambda lambda) {
-        for (int i = 0; i < GAME_TABLE_SIZE; i++) {
-            for (int j = 0; j < GAME_TABLE_SIZE; j++) {
+        for (int i = 0; i < gameTable.getSize(); i++) {
+            for (int j = 0; j < gameTable.getSize(); j++) {
                 int filledCellCount = 0;
                 for (int k = 0; k < WIN_COMBINATION_SIZE; k++) {
                     final Cell cell = lambda.convert(i, j, k);

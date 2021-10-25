@@ -24,7 +24,6 @@ import academy.devonline.gomoku.model.game.Sign;
 
 import java.util.Random;
 
-import static academy.devonline.gomoku.Constants.GAME_TABLE_SIZE;
 import static academy.devonline.gomoku.Constants.WIN_COMBINATION_SIZE;
 
 /**
@@ -42,7 +41,7 @@ public abstract class AbstractComputerMoveStrategy implements ComputerMoveStrate
     @Override
     public final boolean tryToMakeMove(final GameTable gameTable, final Sign moveSign) {
         final Sign findSign = getFindSign(moveSign);
-        final BestCells bestCells = new BestCells();
+        final BestCells bestCells = new BestCells(gameTable.getSize());
         findBestCellsForMoveByRows(gameTable, findSign, bestCells);
         findBestCellsForMoveByCols(gameTable, findSign, bestCells);
         findBestCellsForMoveByMainDiagonal(gameTable, findSign, bestCells);
@@ -78,8 +77,8 @@ public abstract class AbstractComputerMoveStrategy implements ComputerMoveStrate
                                                            final Sign findSign,
                                                            final BestCells bestCells,
                                                            final Lambda lambda) {
-        for (int i = 0; i < GAME_TABLE_SIZE; i++) {
-            for (int j = 0; j < GAME_TABLE_SIZE; j++) {
+        for (int i = 0; i < gameTable.getSize(); i++) {
+            for (int j = 0; j < gameTable.getSize(); j++) {
                 final Cell[] localEmptyCells = new Cell[WIN_COMBINATION_SIZE];
                 int index = 0;
                 int countEmptyCells = 0;
@@ -123,9 +122,13 @@ public abstract class AbstractComputerMoveStrategy implements ComputerMoveStrate
      */
     private static class BestCells {
 
-        private final Cell[] emptyCells = new Cell[GAME_TABLE_SIZE * GAME_TABLE_SIZE];
+        private final Cell[] emptyCells;
 
         private int count;
+
+        private BestCells(final int gameTableSize) {
+            emptyCells = new Cell[gameTableSize * gameTableSize];
+        }
 
         private void add(final Cell cell) {
             for (int i = 0; i < count; i++) {

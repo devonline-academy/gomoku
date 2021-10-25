@@ -19,11 +19,13 @@ package academy.devonline.gomoku.component.config;
 
 import academy.devonline.gomoku.model.config.Level;
 import academy.devonline.gomoku.model.config.PlayerType;
+import academy.devonline.gomoku.model.config.Size;
 
 import static academy.devonline.gomoku.model.config.Level.LEVEL1;
 import static academy.devonline.gomoku.model.config.Level.LEVEL2;
 import static academy.devonline.gomoku.model.config.PlayerType.COMPUTER;
 import static academy.devonline.gomoku.model.config.PlayerType.USER;
+import static academy.devonline.gomoku.model.config.Size.SIZE15;
 
 /**
  * @author devonline
@@ -41,6 +43,7 @@ public class CommandLineArgumentParser {
         PlayerType player1Type = null;
         PlayerType player2Type = null;
         Level level = null;
+        Size size = null;
         for (final String arg : args) {
             if (USER.name().equalsIgnoreCase(arg) || COMPUTER.name().equalsIgnoreCase(arg)) {
                 if (player1Type == null) {
@@ -63,6 +66,15 @@ public class CommandLineArgumentParser {
                             arg, level
                     );
                 }
+            } else if (isSizeArg(arg)) {
+                if (size == null) {
+                    size = Size.valueOf(arg.toUpperCase());
+                } else {
+                    System.err.printf(
+                            "Invalid command line argument: '%s', because game table size already set: '%s'!%n",
+                            arg, size
+                    );
+                }
             } else {
                 System.err.printf("Unsupported command line argument: '%s'%n", arg);
             }
@@ -70,13 +82,25 @@ public class CommandLineArgumentParser {
         if (level == null) {
             level = LEVEL2;
         }
-        if (player1Type == null) {
-            return new CommandLineArguments(USER, COMPUTER, level);
-        } else if (player2Type == null) {
-            return new CommandLineArguments(USER, player1Type, level);
-        } else {
-            return new CommandLineArguments(player1Type, player2Type, level);
+        if (size == null) {
+            size = SIZE15;
         }
+        if (player1Type == null) {
+            return new CommandLineArguments(USER, COMPUTER, level, size);
+        } else if (player2Type == null) {
+            return new CommandLineArguments(USER, player1Type, level, size);
+        } else {
+            return new CommandLineArguments(player1Type, player2Type, level, size);
+        }
+    }
+
+    private boolean isSizeArg(final String arg) {
+        for (final Size value : Size.values()) {
+            if (value.name().equalsIgnoreCase(arg)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -91,12 +115,16 @@ public class CommandLineArgumentParser {
 
         private final Level level;
 
+        private final Size size;
+
         private CommandLineArguments(final PlayerType player1Type,
                                      final PlayerType player2Type,
-                                     final Level level) {
+                                     final Level level,
+                                     final Size size) {
             this.player1Type = player1Type;
             this.player2Type = player2Type;
             this.level = level;
+            this.size = size;
         }
 
         public PlayerType getPlayer1Type() {
@@ -109,6 +137,10 @@ public class CommandLineArgumentParser {
 
         public Level getLevel() {
             return level;
+        }
+
+        public Size getSize() {
+            return size;
         }
     }
 }

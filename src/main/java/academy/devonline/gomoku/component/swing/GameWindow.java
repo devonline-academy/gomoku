@@ -38,8 +38,6 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.WindowConstants;
 
-import static academy.devonline.gomoku.Constants.GAME_TABLE_SIZE;
-
 /**
  * @author devonline
  * @link http://devonline.academy/java
@@ -50,14 +48,18 @@ public final class GameWindow extends JFrame implements DataPrinter, UserInputRe
 
     private static final int CELL_SIZE = 40;
 
-    private final JLabel[][] cells = new JLabel[GAME_TABLE_SIZE][GAME_TABLE_SIZE];
+    private final JLabel[][] cells;
+
+    private final int size;
 
     private Cell clickedCell;
 
-    public GameWindow() {
+    public GameWindow(final int size) {
         super("Gomoku");
+        this.size = size;
+        this.cells = new JLabel[size][size];
         setSystemLookAndFeel();
-        setLayout(new GridLayout(GAME_TABLE_SIZE, GAME_TABLE_SIZE));
+        setLayout(new GridLayout(size, size));
         createGameTable();
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -75,8 +77,8 @@ public final class GameWindow extends JFrame implements DataPrinter, UserInputRe
     }
 
     private void createGameTable() {
-        for (int i = 0; i < GAME_TABLE_SIZE; i++) {
-            for (int j = 0; j < GAME_TABLE_SIZE; j++) {
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
                 final JLabel label = new JLabel();
                 cells[i][j] = label;
                 label.setPreferredSize(new Dimension(CELL_SIZE, CELL_SIZE));
@@ -122,8 +124,8 @@ public final class GameWindow extends JFrame implements DataPrinter, UserInputRe
 
     @Override
     public void printGameTable(final GameTable gameTable) {
-        for (int i = 0; i < GAME_TABLE_SIZE; i++) {
-            for (int j = 0; j < GAME_TABLE_SIZE; j++) {
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
                 cells[i][j].setText(String.valueOf(gameTable.getSign(new Cell(i, j))));
             }
         }

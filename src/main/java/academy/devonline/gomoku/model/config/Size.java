@@ -15,16 +15,34 @@
  *
  */
 
-package academy.devonline.gomoku;
+package academy.devonline.gomoku.model.config;
 
 /**
  * @author devonline
  * @link http://devonline.academy/java
  */
-public final class Constants {
+public enum Size {
 
-    public static final int WIN_COMBINATION_SIZE = 5;
+    SIZE7,
 
-    private Constants() {
+    SIZE8,
+
+    SIZE9,
+
+    SIZE10,
+
+    SIZE11,
+
+    SIZE12,
+
+    SIZE13,
+
+    SIZE14,
+
+    SIZE15;
+
+    public int intValue() {
+        // 4 - is length for "SIZE" prefix
+        return Integer.parseInt(name().substring(4));
     }
 }
