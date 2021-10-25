@@ -22,7 +22,6 @@ import academy.devonline.gomoku.component.strategy.FirstMoveToTheCenterComputerM
 import academy.devonline.gomoku.component.strategy.PreventUserWinComputerMoveStrategy;
 import academy.devonline.gomoku.component.strategy.RandomComputerMoveStrategy;
 import academy.devonline.gomoku.component.strategy.WinNowComputerMoveStrategy;
-import academy.devonline.gomoku.component.strategy.WinOnTheNextStepComputerMoveStrategy;
 
 /**
  * @author devonline
@@ -38,14 +37,6 @@ public enum Level {
     LEVEL2(new ComputerMoveStrategy[]{
             new WinNowComputerMoveStrategy(),
             new PreventUserWinComputerMoveStrategy(),
-            new FirstMoveToTheCenterComputerMoveStrategy(),
-            new RandomComputerMoveStrategy()
-    }),
-
-    LEVEL3(new ComputerMoveStrategy[]{
-            new WinNowComputerMoveStrategy(),
-            new PreventUserWinComputerMoveStrategy(),
-            new WinOnTheNextStepComputerMoveStrategy(),
             new FirstMoveToTheCenterComputerMoveStrategy(),
             new RandomComputerMoveStrategy()
     });

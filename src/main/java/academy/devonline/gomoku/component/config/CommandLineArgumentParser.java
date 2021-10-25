@@ -22,7 +22,6 @@ import academy.devonline.gomoku.model.config.PlayerType;
 
 import static academy.devonline.gomoku.model.config.Level.LEVEL1;
 import static academy.devonline.gomoku.model.config.Level.LEVEL2;
-import static academy.devonline.gomoku.model.config.Level.LEVEL3;
 import static academy.devonline.gomoku.model.config.PlayerType.COMPUTER;
 import static academy.devonline.gomoku.model.config.PlayerType.USER;
 
@@ -55,8 +54,7 @@ public class CommandLineArgumentParser {
                     );
                 }
             } else if (LEVEL1.name().equalsIgnoreCase(arg) ||
-                    LEVEL2.name().equalsIgnoreCase(arg) ||
-                    LEVEL3.name().equalsIgnoreCase(arg)) {
+                    LEVEL2.name().equalsIgnoreCase(arg)) {
                 if (level == null) {
                     level = Level.valueOf(arg.toUpperCase());
                 } else {
@@ -70,7 +68,7 @@ public class CommandLineArgumentParser {
             }
         }
         if (level == null) {
-            level = LEVEL3;
+            level = LEVEL2;
         }
         if (player1Type == null) {
             return new CommandLineArguments(USER, COMPUTER, level);
