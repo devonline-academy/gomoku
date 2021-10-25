@@ -38,8 +38,6 @@ public class Game {
 
     private final CellVerifier cellVerifier;
 
-    private final GameOverHandler gameOverHandler;
-
     private final boolean canSecondPlayerMakeFirstMove;
 
     public Game(final DataPrinter dataPrinter,
@@ -47,20 +45,26 @@ public class Game {
                 final Player player2,
                 final WinnerVerifier winnerVerifier,
                 final CellVerifier cellVerifier,
-                final GameOverHandler gameOverHandler,
                 final boolean canSecondPlayerMakeFirstMove) {
         this.dataPrinter = dataPrinter;
         this.player1 = player1;
         this.player2 = player2;
         this.winnerVerifier = winnerVerifier;
         this.cellVerifier = cellVerifier;
-        this.gameOverHandler = gameOverHandler;
         this.canSecondPlayerMakeFirstMove = canSecondPlayerMakeFirstMove;
     }
 
+    @SuppressWarnings("InfiniteLoopStatement")
     public void play() {
         dataPrinter.printInstructions();
+        while (true) {
+            playNewGame();
+        }
+    }
+
+    private void playNewGame() {
         final GameTable gameTable = new GameTable();
+        dataPrinter.printGameTable(gameTable);
         if (canSecondPlayerMakeFirstMove && new Random().nextBoolean()) {
             player2.makeMove(gameTable);
             dataPrinter.printGameTable(gameTable);
@@ -72,12 +76,10 @@ public class Game {
                 dataPrinter.printGameTable(gameTable);
                 if (winnerVerifier.isWinner(gameTable, player)) {
                     dataPrinter.printInfoMessage(player + " WIN!");
-                    gameOverHandler.gameOver();
                     return;
                 }
                 if (cellVerifier.allCellsFilled(gameTable)) {
                     dataPrinter.printInfoMessage("Sorry, DRAW!");
-                    gameOverHandler.gameOver();
                     return;
                 }
             }
